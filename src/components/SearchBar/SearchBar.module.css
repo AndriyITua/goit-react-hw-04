@@ -1,0 +1,16 @@
+.container {
+  background-color: rgb(59, 59, 255);
+  padding: 15px 0px;
+  margin: 0px;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0px 4px 8px rgb(0, 0, 0);
+}
+
+.input {
+  font-size: 17px;
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  outline: none;
+}

@@ -3,6 +3,7 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import { fetchPhotos } from "./photos-api";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
+import ImageModal from "./components/ImageModal/ImageModal";
 
 export default function App() {
   const [photos, setPhotos] = useState([]);
@@ -12,16 +13,35 @@ export default function App() {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
 
+  const [modalIsOpen, setIsOpen] = useState(false);
+
   const handleSearch = (newQuery) => {
     setQuery(newQuery);
     setPage(1);
+    setPhotos([]);
   };
 
   const handleLoadMore = () => {
     setPage(page + 1);
   };
 
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const afterOpenModal = () => {
+    console.log("afterOpenModal");
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
   useEffect(() => {
+    if (query === "") {
+      return;
+    }
+
     async function getPhotos() {
       try {
         setIsLoading(true);
@@ -47,9 +67,19 @@ export default function App() {
 
       {isLoading && <b>Please wait, loading photos...</b>}
 
-      {photos.length > 0 && <ImageGallery items={photos} />}
+      {photos.length > 0 && (
+        <ImageGallery openModal={openModal} items={photos} />
+      )}
 
-      {photos.length > 0 && <LoadMoreBtn onClick={handleLoadMore} />}
+      <ImageModal
+        modalIsOpen={modalIsOpen}
+        closeModal={closeModal}
+        afterOpenModal={afterOpenModal}
+      />
+
+      {photos.length > 0 && !isLoading && (
+        <LoadMoreBtn onClick={handleLoadMore} />
+      )}
     </div>
   );
 }
