@@ -14,6 +14,7 @@ export default function App() {
   const [query, setQuery] = useState("");
 
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [currentImage, setCurrentImage] = useState("");
 
   const handleSearch = (newQuery) => {
     setQuery(newQuery);
@@ -25,12 +26,9 @@ export default function App() {
     setPage(page + 1);
   };
 
-  const openModal = () => {
+  const openModal = (image) => {
+    setCurrentImage(image);
     setIsOpen(true);
-  };
-
-  const afterOpenModal = () => {
-    console.log("afterOpenModal");
   };
 
   const closeModal = () => {
@@ -74,7 +72,7 @@ export default function App() {
       <ImageModal
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
-        afterOpenModal={afterOpenModal}
+        image={currentImage}
       />
 
       {photos.length > 0 && !isLoading && (

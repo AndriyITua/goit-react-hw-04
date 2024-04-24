@@ -1,19 +1,18 @@
 import Modal from "react-modal";
 import css from "./ImageModal.module.css";
 
-export default function ImageModal({
-  modalIsOpen,
-  closeModal,
-  afterOpenModal,
-}) {
+Modal.setAppElement("#root");
+
+export default function ImageModal({ modalIsOpen, closeModal, image }) {
   return (
     <div>
       <Modal
+        className={css.modal}
+        overlayClassName={css.overlay}
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
       >
-        <img className={css.image} src="???" alt="" />
+        <img src={image} alt="" />
       </Modal>
     </div>
   );

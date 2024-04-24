@@ -1,17 +1,8 @@
 import { Formik, Form, Field } from "formik";
 import toast, { Toaster } from "react-hot-toast";
 import css from "./SearchBar.module.css";
-import { useState } from "react";
 
 export default function SearchBar({ onSearch }) {
-  const [value, setValue] = useState("");
-
-  const notify = () => {
-    if (value.query === "") {
-      toast("Text must be entered");
-    }
-  };
-
   // const handleForm = (e) => {
   //   const form = e.target;
   //   const value = form.elements.input.value;
@@ -24,9 +15,12 @@ export default function SearchBar({ onSearch }) {
       <Formik
         initialValues={{ query: "" }}
         onSubmit={(values, actions) => {
+          if (values.query === "") {
+            toast("Please enter a search term");
+            return;
+          }
           onSearch(values.query);
           actions.resetForm();
-          setValue(values);
         }}
       >
         <Form>
@@ -38,9 +32,7 @@ export default function SearchBar({ onSearch }) {
             autoFocus
             placeholder="Search images and photos"
           />
-          <button type="submit" onClick={notify}>
-            Search
-          </button>
+          <button type="submit">Search</button>
           <Toaster
             position="top-right"
             reverseOrder={false}
