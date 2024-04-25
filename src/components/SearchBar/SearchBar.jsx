@@ -16,7 +16,7 @@ export default function SearchBar({ onSearch }) {
         initialValues={{ query: "" }}
         onSubmit={(values, actions) => {
           if (values.query === "") {
-            toast("Please enter a search term");
+            toast.error("Please enter a search term");
             return;
           }
           onSearch(values.query);
@@ -32,15 +32,17 @@ export default function SearchBar({ onSearch }) {
             autoFocus
             placeholder="Search images and photos"
           />
-          <button type="submit">Search</button>
+          <button className={css.button} type="submit">
+            Search
+          </button>
           <Toaster
             position="top-right"
-            reverseOrder={false}
             toastOptions={{
               style: {
                 border: "1px solid black",
                 padding: "5px",
-                color: "black",
+                color: "white",
+                backgroundColor: "black",
               },
             }}
           />

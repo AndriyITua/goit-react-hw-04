@@ -8,11 +8,10 @@ export default function ImageModal({ modalIsOpen, closeModal, image }) {
     <div>
       <Modal
         className={css.modal}
-        overlayClassName={css.overlay}
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
       >
-        <img src={image} alt="" />
+        <img src={image} alt="Large photo" />
       </Modal>
     </div>
   );

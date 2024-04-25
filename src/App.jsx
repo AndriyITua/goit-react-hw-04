@@ -4,6 +4,8 @@ import { fetchPhotos } from "./photos-api";
 import ImageGallery from "./components/ImageGallery/ImageGallery";
 import LoadMoreBtn from "./components/LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "./components/ImageModal/ImageModal";
+import Loader from "./components/Loader/Loader";
+import ErrorMessage from "./components/ErrorMessage/ErrorMessage";
 
 export default function App() {
   const [photos, setPhotos] = useState([]);
@@ -42,6 +44,7 @@ export default function App() {
 
     async function getPhotos() {
       try {
+        setError(false);
         setIsLoading(true);
         const data = await fetchPhotos(query, page);
         setPhotos((prevPhotos) => {
@@ -49,6 +52,7 @@ export default function App() {
         });
       } catch (error) {
         setError(true);
+        setPhotos([]);
       } finally {
         setIsLoading(false);
       }
@@ -61,9 +65,9 @@ export default function App() {
     <div>
       <SearchBar onSearch={handleSearch} />
 
-      {error && <b>Opps! There was an error! Please reload!</b>}
+      {error && <ErrorMessage />}
 
-      {isLoading && <b>Please wait, loading photos...</b>}
+      {isLoading && <Loader />}
 
       {photos.length > 0 && (
         <ImageGallery openModal={openModal} items={photos} />
@@ -74,7 +78,6 @@ export default function App() {
         closeModal={closeModal}
         image={currentImage}
       />
-
       {photos.length > 0 && !isLoading && (
         <LoadMoreBtn onClick={handleLoadMore} />
       )}

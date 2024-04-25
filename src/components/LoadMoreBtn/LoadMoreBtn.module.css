@@ -8,7 +8,10 @@
   font-size: 17px;
   background-color: rgb(54, 54, 251);
   color: white;
-  border: 2px solid;
+  border: 2px solid rgb(54, 54, 54);
   border-radius: 5px;
   padding: 5px 20px;
+}
+.button:hover {
+  transform: scale(1.05);
 }

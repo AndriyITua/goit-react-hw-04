@@ -13,4 +13,15 @@
   border-radius: 5px;
   padding: 5px 10px;
   outline: none;
+  margin-right: 10px;
+}
+
+.button {
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+.button:hover {
+  transform: scale(1.05);
 }
