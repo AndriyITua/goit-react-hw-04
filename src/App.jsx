@@ -19,6 +19,9 @@ export default function App() {
   const [currentImage, setCurrentImage] = useState("");
 
   const handleSearch = (newQuery) => {
+    if (newQuery === query) {
+      return;
+    }
     setQuery(newQuery);
     setPage(1);
     setPhotos([]);
@@ -64,23 +67,19 @@ export default function App() {
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
-
-      {error && <ErrorMessage />}
-
-      {isLoading && <Loader />}
-
       {photos.length > 0 && (
         <ImageGallery openModal={openModal} items={photos} />
       )}
-
+      {error && <ErrorMessage />}
+      {isLoading && <Loader />}
+      {!isLoading && photos.length > 0 && (
+        <LoadMoreBtn onClick={handleLoadMore} />
+      )}
       <ImageModal
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
         image={currentImage}
       />
-      {photos.length > 0 && !isLoading && (
-        <LoadMoreBtn onClick={handleLoadMore} />
-      )}
     </div>
   );
 }
